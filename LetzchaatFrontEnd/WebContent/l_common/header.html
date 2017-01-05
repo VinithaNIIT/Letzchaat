@@ -1,0 +1,53 @@
+
+<div id="wrapper">
+
+<div id="header-wrapper" style="background: url(lib/image/img03.png) repeat;">
+				<div class="container">
+					<div id="header" >
+						<div id="logo">
+							<h1><a href="#">LetzChaat.com</a></h1>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					
+					<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    
+    <ul class="nav navbar-nav">
+     <li class="current_page_item"><a href="index.html" >Home</a></li>
+							<li><a href="threecolumn.html">AboutUs</a></li>
+							<li><a href="#/create_blog" >Blog</a></li>
+							<li><a href="twocolumn2.html" >Events</a></li>
+							<li><a href="twocolumn2.html">Jobs</a></li>
+							<li><a href="onecolumn.html" >ContactUs</a></li>
+    </ul>
+    <!-- <div class="container"> -->
+    <div ng-show="currentUser==''">
+    <ul class="nav navbar-nav navbar-right">
+    <li style="text-align: right;"> <a href="#/login" style="text-align: right;">
+    <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	<li style="text-align: right;">
+	<a href="#/registration"  style="text-align: right;">
+		<span class="glyphicon glyphicon-user"></span>
+	Sign Up</a>
+	</li>
+    </ul>
+    </div>
+    <div ng-hide="currentUser==''">
+     <ul class="nav navbar-nav navbar-right">
+    <li style="text-align: right;"> 
+    <span class="glyphicon glyphicon-log-in"></span> Welcome:{{currentUser.username}}</li></ul>
+    </div>
+    </div>
+  <!-- </div> -->
+</nav>
+				</div>
+				<!-- <div class="container">
+					<div id="banner">
+						<div class="container"><a href="#"><img src="lib/image/" alt=""></a></div>
+					</div> 
+				</div>-->
+			</div>
+				</div>
+

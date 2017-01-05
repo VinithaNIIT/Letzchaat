@@ -1,0 +1,38 @@
+<div class="container" ng-app="myApp" ng-controller="BlogController as ctrl">
+	<div class="row">
+		<h3>Blog Details</h3>
+	</div>
+	<form ng-submit="ctrl.submit()" method="get">
+	 <div class="row">
+    
+    <div class="col-md-6">
+    						<div class="widget-area no-padding blank">
+								<div class="status-upload">
+									
+										<input type="text" name="title" id="title" placeholder="Enter Blog Title" style="height:50px;width:200px;" ></input>
+									
+									
+									
+								</div>
+							</div>
+						</div>
+        
+    </div>
+    
+    <div class="row">
+    
+    <div class="col-md-6">
+    						<div class="widget-area no-padding blank">
+								<div class="status-upload">
+									
+										<textarea id="description" name="description" placeholder="Enter Blog Description" ></textarea>
+									
+										<input type="submit" class="btn btn-success green" value="Create Blog"/> 
+									
+								</div><!-- Status Upload  -->
+							</div><!-- Widget Area -->
+						</div>
+        
+    </div>
+    </form>
+</div>
