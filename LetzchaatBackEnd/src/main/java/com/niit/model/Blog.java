@@ -3,15 +3,20 @@ package com.niit.model;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Table(name="l_blog")
 public class Blog extends Error {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int blogid;
 	private String blogtitle;
 	private String description;

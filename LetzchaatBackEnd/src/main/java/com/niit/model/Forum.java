@@ -4,11 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Table(name="l_forum")
 public class Forum extends Error {
 	
 	@Id
@@ -16,6 +18,7 @@ public class Forum extends Error {
 	private String username;
 	private String forum_topic;
 	private Date created_date;
+	private String forum_question;
 	public int getForumid() {
 		return forumid;
 	}
@@ -40,11 +43,18 @@ public class Forum extends Error {
 	public void setCreated_date(Date created_date) {
 		this.created_date = created_date;
 	}
+	public String getForum_question() {
+		return forum_question;
+	}
+	public void setForum_question(String forum_question) {
+		this.forum_question = forum_question;
+	}
 	@Override
 	public String toString() {
 		return "Forum [forumid=" + forumid + ", username=" + username + ", forum_topic=" + forum_topic
-				+ ", created_date=" + created_date + "]";
+				+ ", created_date=" + created_date + ", forum_question=" + forum_question + "]";
 	}
+	
 	
 
 }

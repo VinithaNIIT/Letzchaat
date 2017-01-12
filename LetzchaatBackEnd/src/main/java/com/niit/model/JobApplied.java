@@ -1,15 +1,18 @@
 package com.niit.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class JobApplied {
+@Table(name="l_job_applied")
+public class JobApplied extends Error{
 	
 	@Id
 	private int id;

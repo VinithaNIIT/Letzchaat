@@ -44,6 +44,7 @@ public class ForumController {
 		
 		else{
 			forum.setCreated_date(new Date());
+			forum.setUsername(username);
 			forumDAOImpl.insertForum(forum);
 			forum.setErrorcode("200");
 			forum.setErrormessage("The user has successfully created the Forum");

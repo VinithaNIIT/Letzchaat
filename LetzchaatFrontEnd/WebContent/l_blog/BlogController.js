@@ -1,5 +1,5 @@
 'use strict';
-app.controller('BlogController', ['$scope', 'BlogService', function($scope, BlogService){
+app.controller('BlogController', ['$scope','$location', 'BlogService', function($scope,$location, BlogService){
 	var self=this;
 	self.blog={
 			blogid:'',
@@ -12,6 +12,7 @@ app.controller('BlogController', ['$scope', 'BlogService', function($scope, Blog
 		};
 	self.blogs=[];
 	
+	console.log('INSIDE BLOG CONTROLLER')
 	
 	self.submit=function(){
 		
@@ -20,10 +21,13 @@ app.controller('BlogController', ['$scope', 'BlogService', function($scope, Blog
 	}
 	self.createBlog=function(blog){
 		
-		console.log('create blogs...');
+		console.log('create blogs...',self.blog);
 		BlogService.createBlog(blog)
 		.then(
-				self.fetchAllBlogs,
+				function(d){
+    				alert('Successfully created the blog')
+    				$location.path("/");
+    			},
 				function(errResponse){
 					console.error('Error while creating blog.....');
 				}
@@ -32,12 +36,14 @@ app.controller('BlogController', ['$scope', 'BlogService', function($scope, Blog
 		
 	};
 	
-	
+	console.log('fetchallblogs')
 	self.fetchAllBlogs=function(){
-		
+		console.log(' Inside FetchAllBlogs method in Blog Controller ')
 		BlogService.fetchAllBlogs()
 		.then(function(d){
 			self.blogs=d;
+			
+			console.log('value in blogs',self.blogs)
 			
 		},
 		
@@ -90,12 +96,18 @@ app.controller('BlogController', ['$scope', 'BlogService', function($scope, Blog
        						console.error("Error while deleting Blog");
        					});
        		};
+       		console.log('blogs value',self.blogs)
        		
-       		self.getSelectedBlog =function(id){
+       		//calling the method when it will be exceute
+	self.fetchAllBlogs();
+       		
+       		self.getSelectedBlog = getBlog
+       		function getBlog(id){
           		console.log("--.getting blog:"+id)
           		BlogService.getBlog(id)
           		.then(function(d){
-          			self.blog=d;
+          			//self.blog=d;
+          			console.log('getSelectedBlog in BlogController',self.blog)
           			$location.path('/view_blog');
           			
           		},

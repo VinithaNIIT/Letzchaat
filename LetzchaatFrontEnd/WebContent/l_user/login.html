@@ -5,8 +5,8 @@
 
 <div ng-app="myApp">
 
-<div class="container"  ng-controller="UserController as ctrl" >
-    <form name="form" method="post" style="max-width: 400px;padding: 10px; background-color: #fff; margin: 0 auto; border-radius:0.3em;"  ng-submit="ctrl.login()">
+<div class="container"  ng-controller="UserController as ctrl" style="max-width: 80%;height:80%;" >
+    <form name="form" method="post" style="max-width: 80%;height:80%;padding: 10px; background-color: #ffffff; margin: 0 auto; border-radius:0.3em;"  ng-submit="ctrl.login()">
 
     <div class="omb_login" >
     	<h3 class="omb_authTitle" >LOGIN </h3>
@@ -19,19 +19,19 @@
 					<div class="input-group" >
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 						
-						<input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="User Name">
+						<input type="text" class="form-control" name="username" ng-model="ctrl.user.username" placeholder="User Name" required="required">
 						
 					</div>
 					<span class="help-block"></span>
 										
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input  type="password" class="form-control" name="password" placeholder="Password" ng-model="ctrl.user.password">
+						<input  type="password" class="form-control" name="password" placeholder="Password" ng-model="ctrl.user.password" required="required">
 					</div>
                     <span class="help-block"></span>
 
 					<!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button> -->
-					<input type="submit" value="LOGIN" class="btn btn-lg btn-primary btn-block">
+					<input type="submit" value="LOGIN" style="width: 300px; margin: 0 auto; " class="btn btn-lg btn-primary btn-block">
 				</form>
 			</div>
     	</div>

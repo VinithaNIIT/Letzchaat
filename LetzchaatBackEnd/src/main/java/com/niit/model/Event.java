@@ -4,12 +4,14 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class Event {
+@Table(name="l_event")
+public class Event extends Error {
 	
 	@Id
 	private String eventid;

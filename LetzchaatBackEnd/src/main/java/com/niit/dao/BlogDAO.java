@@ -15,7 +15,9 @@ public interface BlogDAO {
 	public void updateBlogById(int blogid);
 	public boolean insertBlogComment(BlogComment blogcomment);
 	public boolean updateBlogComment(BlogComment blogcomment);
-	public boolean deleteBlogComment(BlogComment blogcomment);
+	public void deleteBlogComment(int blogid);
+	public BlogComment getBlogCommentById(int blogid);
+	public List<BlogComment> getBlogCommentList();
 	
 	
 	

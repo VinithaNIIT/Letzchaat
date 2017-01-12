@@ -90,18 +90,46 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 
 	public boolean insertBlogComment(BlogComment blogcomment) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		log.debug("Starting of the BLOGDAO Method INSERTBLOGCOMMENT");
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+			session.saveOrUpdate(blogcomment);
+			tx.commit();
+			session.close();
+			log.debug("Ending of the BLOGDAO Method INSERTBLOGCOMMENT");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean updateBlogComment(BlogComment blogcomment) {
-		// TODO Auto-generated method stub
-		return false;
+		log.debug("Starting of the BLOGDAO Method UPDATEBLOGCOMMENT");
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+			session.update(blogcomment);
+			tx.commit();
+			session.close();
+			log.debug("Ending of the BLOGDAO Method UPDATEBLOGCOMMENT");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public boolean deleteBlogComment(BlogComment blogcomment) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteBlogComment(int blogid) {
+		Session session=getSession();
+		Transaction tx=session.beginTransaction();
+		BlogComment bc=session.get(BlogComment.class, blogid);
+		session.delete(bc);
+		tx.commit();
+		session.close();
+		
 	}
 
 	public Blog getBlogById(int blogid) {
@@ -124,6 +152,29 @@ public class BlogDAOImpl implements BlogDAO {
 		tx.commit();
 		log.debug("Ending of the BLOGDAO method UPDATEBLOGBYID");
 		
+	}
+
+	public BlogComment getBlogCommentById(int blogid) {
+		log.debug("Starting of the BLOGDAO method GETBLOGCOMMENTBYID");
+		Session session=getSession();
+		//Transaction tx=session.beginTransaction();
+		BlogComment b=session.get(BlogComment.class, blogid);
+		session.close();
+		log.debug("Ending of the BLOGDAO method GETBLOGCOMMENTBYID");
+		return b;
+	}
+
+	public List<BlogComment> getBlogCommentList() {
+		log.debug("Starting of the BLOGDAO Method GETBLOGCOMMENTLIST");
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		String s = "from BlogComment";
+		Query query = session.createQuery(s);
+		List<BlogComment> b = query.list();
+		tx.commit();
+		session.close();
+		log.debug("Ending of the BLOGDAO Method GETBLOGCOMMENTLIST");
+		return b;
 	}
 
 }

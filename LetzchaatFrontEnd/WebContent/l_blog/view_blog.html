@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div ng-app="myApp" ng-controller="BlogController as ctrl">
+<div class="post" >
+          <div>
+            
+            <h2 style="margin-top: 20px;padding-top: 20px;font-size: 30px;font:bold;color: blue;">{{selectedBlog.blogtitle}}</h2>
+           
+            <cite style="font:bold; color:black;">Posted By {{selectedBlog.username}} on {{selectedBlog.date_of_creation | date}}</cite><br><br><br>
+            <div class="post-body" style="color:black;">
+             <p>
+               {{selectedBlog.description}}
+             </p> 
+            </div>
+            
+            <div class="comments" ng-controller="BlogCommentController as commentctrl">
+              <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
+              <h3>Comments</h3>
+              <ul>
+               <li ng-repeat="comment in blogcomments.comments">
+                 "{{comment.comments}}"
+                 <cite>- <b>{{comment.username}}</b></cite>
+               
+               </li>
+              </ul>
+              {{$parent.selectedBlog}}
+              <form name="commentForm" ng-submit="commentForm.$valid && commentctrl.submit()" novalidate>
+              
+                
+                <h4>Add Comment</h4>
+                  <textarea ng-model="commentctrl.blogcomment.comments" cols="30" rows="10" required></textarea>
+                <label for="">by:</label>
+                  <input type="text" ng-model="commentctrl.blogcomment.username" required placeholder="Name"/>
+                  
+                  <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+      </div>
+        
+            </div>
+           

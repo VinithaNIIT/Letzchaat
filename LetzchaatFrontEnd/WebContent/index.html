@@ -43,18 +43,28 @@
 	})
 </script> -->
 </head>
-<body>
+<body >
 <div class="container-fluid"> 
 <div ng-include src="'l_common/header.html'"></div>
 </div>
-<div class="container-fluid"> 
- <div ng-view></div>
+<div class="container-fluid" style="background-color: #fff ;width:80%; min-height:80%;margin-left:90px;position: relative;"> 
+ <div ng-view  ></div>
 </div>
 </body>
 <script src="app.js"></script>
 <script src="l_user/UserController.js"></script>
 <script src="l_user/UserService.js"></script>
 <script src="l_blog/BlogController.js"></script>
+<script src="l_blog/BlogCommentController.js"></script>
 <script src="l_blog/BlogService.js"></script>
+<script src="l_forum/ForumController.js"></script>
+<script src="l_forum/ForumService.js"></script>
+<script src="l_event/EventController.js"></script>
+<script src="l_event/EventService.js"></script>
+<script src="l_job/JobController.js"></script>
+<script src="l_job/JobService.js"></script>
+<script src="l_friend/FriendController.js"></script>
+<script src="l_friend/FriendService.js"></script>
+
 
 </html>

@@ -4,12 +4,14 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class Job {
+@Table(name="l_job")
+public class Job extends Error {
 	
 	@Id
 	private String jobid;
