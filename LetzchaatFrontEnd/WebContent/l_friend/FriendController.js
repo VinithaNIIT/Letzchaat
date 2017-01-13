@@ -33,6 +33,10 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
     	);
     	
     };*/
+    self.fetch2=function(){
+		self.fetchAllPendingFriends();
+	}
+	
     
     self.fetchAllPendingFriends = function() {
 		console.log("fetchAllPendingFriends...")
@@ -42,10 +46,10 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
 						function(d) {
 							self.friends = d;
 							console.log('fetchAllPendingFriends details iin FriendController',self.friends)
-							alert(self.friends.errormessage)
+							/*alert(self.friends.errormessage)*/
 						},
 						function(errResponse) {
-							alert(self.friends.errormessage)
+						/*	alert(self.friends.errormessage)*/
 							console
 									.error('Error while fetchAllPendingFriends friends');
 						});
@@ -56,6 +60,11 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
 	    
 	    //better to call fetchAllfriends ==>after login
 	
+	
+	self.fetch1=function(){
+		self.fetchAllAcceptedFriends();
+	}
+	
 	 self.fetchAllAcceptedFriends = function() {
 			console.log("fetchAllAcceptedFriends...")
 			FriendService
@@ -64,12 +73,14 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
 							function(d) {
 								self.friends = d;
 								console.log('fetchAllAcceptedFriends details iin FriendController',self.friends)
-								alert(self.friends.errormessage)
+								
+								/*self.fetchAllAcceptedFriends();*/
+								/*alert(self.friends.errormessage)*/
 							},
 							function(errResponse) {
 								console
 										.error('Error while fetchAllAcceptedFriends friends');
-								alert(self.friends.errormessage)
+								/*alert(self.friends.errormessage)*/
 							});
 		};
 	

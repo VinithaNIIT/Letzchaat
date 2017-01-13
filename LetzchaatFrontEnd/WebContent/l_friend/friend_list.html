@@ -11,7 +11,7 @@
 
 </div>
 
-<div ng-show="loggedIn">
+<div ng-show="loggedIn"  >
 	<table id="search" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -25,9 +25,12 @@
 						</tr>
 					</thead>
 					<tbody ng-app="myApp" ng-controller="FriendController as ctrl">
+					<!-- <tr><td>{{selectedAccepted}}</td></tr> -->
+					<!-- <tr><td><a href="#" ng-click="ctrl.fetchAllAcceptedFriends()">Click here</a></td></tr> -->
 						<tr ng-repeat="friend in ctrl.friends" >
 						<td data-th="isOnline">{{friend.isonline}}
 								<!-- <input type="number" class="form-control text-center" value="1"> -->
+								
 							</td>
 							<td data-th="Name">
 								{{friend.name}}

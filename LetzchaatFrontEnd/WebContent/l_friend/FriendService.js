@@ -27,6 +27,8 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
                       .then(
                               function(response){
                              	 console.log('fetchAllAcceptedFriends details iin FriendController',response.data)
+                             	 $rootScope.selectedAccepted=response.data;
+                             	 console.log('SelectAccepted',$rootScope.selectedAccepted)
                                   return response.data;
                                   
                               }, 

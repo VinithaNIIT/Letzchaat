@@ -1,5 +1,5 @@
 'use strict';
-app.controller('BlogCommentController', ['$scope','$location', '$routeParams','blogService', function($scope,$location,$routeParams, blogService){
+app.controller('BlogCommentController', ['$scope','$location', '$routeParams','BlogService', function($scope,$location,$routeParams, BlogService){
 	var self=this;
 	self.blogcomment={
 			commentid:'',
@@ -15,7 +15,10 @@ app.controller('BlogCommentController', ['$scope','$location', '$routeParams','b
 	
 console.log('INSIDE BLOG COMMENT CONTROLLER')
 	
-	self.submit=function(){
+	self.submit=function(blogid){
+	
+	self.blogcomment.blogid=blogid;
+	console.log('blogid vlaue:',self.blogcomment.blogid)
 		
 		console.log('Saving new blog comment',self.blogcomment);
 		self.createBlogComment(self.blogcomment);

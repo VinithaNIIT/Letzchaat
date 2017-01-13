@@ -9,20 +9,22 @@
              <p>
                {{selectedBlog.description}}
              </p> 
+             
             </div>
             
             <div class="comments" ng-controller="BlogCommentController as commentctrl">
+             {{ctrl.blog.blogid}}
               <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
               <h3>Comments</h3>
               <ul>
-               <li ng-repeat="comment in blogcomments.comments">
-                 "{{comment.comments}}"
-                 <cite>- <b>{{comment.username}}</b></cite>
+               <li ng-repeat="value in commentctrl.comments">
+                 {{value.comments}}
+                 <cite>- <b>{{value.username}}</b></cite>
                
                </li>
               </ul>
-              {{$parent.selectedBlog}}
-              <form name="commentForm" ng-submit="commentForm.$valid && commentctrl.submit()" novalidate>
+              {{selectedBlog.blogid}}
+              <form name="commentForm" ng-submit="commentForm.$valid && commentctrl.submit(selectedBlog.blogid)" novalidate>
               
                 
                 <h4>Add Comment</h4>

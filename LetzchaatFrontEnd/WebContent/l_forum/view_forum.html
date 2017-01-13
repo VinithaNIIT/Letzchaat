@@ -1,9 +1,9 @@
-<div class="container" ng-app="myApp" ng-controller="ForumController as ctrl">
+<div class="container" ng-app="myApp" ng-controller="ForumController as ctrl"style="position: relative;">
 
 <div class="post" >
           <div>
             
-            <h2 style="margin-top: 20px;padding-top: 20px;font-size: 30px;font:bold;color: blue;">{{selectedforum.forum_topic}}</h2>
+            <h2 style="margin-top: 20px;padding-top: 20px;font-size: 25px;font:bold;color: blue;">{{selectedforum.forum_topic}}</h2>
            
             <cite style="font:bold; color:black;">Posted By {{selectedforum.username}} on {{selectedforum.created_date | date}}</cite><br><br><br>
             <div class="post-body" style="color:black;">
@@ -12,7 +12,7 @@
              </p> 
             </div>
             
-            <div class="comments" ng-controller="BlogCommentController as commentctrl">
+           <!--  <div class="comments" ng-controller="BlogCommentController as commentctrl">
               <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
               <h3>Comments</h3>
               <ul>
@@ -31,7 +31,7 @@
                   
                   <input type="submit" value="Submit" />
                 </form>
-            </div>
+            </div> -->
         </div>
       </div>
 

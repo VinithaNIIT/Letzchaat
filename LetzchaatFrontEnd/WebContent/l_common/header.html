@@ -12,7 +12,7 @@
 				<div class="container">
 					
 					<nav class="navbar navbar-inverse" style="color:white;font: bold;">
-  <div class="container-fluid" ng-controller="FriendController as fctrl">
+  <div class="container-fluid" >
   
     <ul class="nav navbar-nav" >
      <li class="current_page_item" ><a href="index.html" >Home</a></li>
@@ -31,10 +31,10 @@
 							</ul>
 							</li>
 							<li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" >Friends<span class="caret"></span></a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" ng-controller="FriendController as fctrl">
 							<li><a href="#/search_friend" >View User Details</a></li>
-							<li  ><a href="#/friend_list" ng-click="fctrl.fetchAllAcceptedFriends()"  >List of Friends</a></li>
-							<li  ><a href="#/pending_request" ng-click="fctrl.fetchAllPendingFriends()" >Pending Friends Request</a></li>
+							<li  ><a ng-href="#/friend_list" ng-click="fctrl.fetch1()" >List of Friends</a></li>
+							<li  ><a ng-href="#/pending_request" ng-click="fctrl.fetch2()" >Pending Friends Request</a></li>
 							</ul>
 							</li>
 							

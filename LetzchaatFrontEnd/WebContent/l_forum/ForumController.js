@@ -96,7 +96,8 @@ app.controller('ForumController', ['$scope','$location', 'ForumService', functio
        					});
        		};
        		console.log('forums value',self.forums)
-       		self.getSelectedForum = function(id){
+       		self.getSelectedForum = getForum
+       		function getForum(id){
           		console.log("--.getting forum:"+id)
           		ForumService.getForum(id)
           		.then(function(d){

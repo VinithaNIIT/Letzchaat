@@ -75,9 +75,9 @@ public class ForumController {
 	@RequestMapping(value="/getforum/{forumid}",method=RequestMethod.GET)
 	public ResponseEntity<Forum>getForum(@PathVariable int forumid)
 	{
-		forumDAOImpl.getForumById(forumid);
+		forum=forumDAOImpl.getForumById(forumid);
 		forum.setErrorcode("200");
-		forum.setErrormessage("Retrieved the blog");
+		forum.setErrormessage("Retrieved the Forum");
 		return new ResponseEntity<Forum>(forum,HttpStatus.OK);
 		
 	}
