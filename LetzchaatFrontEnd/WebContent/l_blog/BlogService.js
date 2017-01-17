@@ -73,9 +73,9 @@ app.factory('BlogService', ['$http', '$q','$rootScope', function($http, $q,$root
 	 );
  },
  
- createBlogComment:function(blogcomment){
+ createBlogComment:function(blogcomment,blogid){
 	 console.log('Blog Comment service')
-	 return $http.post(REST_SERVICE_URI+'/createblogcomment/',blogcomment)
+	 return $http.post(REST_SERVICE_URI+'/createblogcomment/'+blogid,blogcomment)
 	 .then(function(response){
 		 return response.data;
 		 
@@ -121,6 +121,7 @@ app.factory('BlogService', ['$http', '$q','$rootScope', function($http, $q,$root
 	 .then(
 	function(response){
 		console.log('success in BlogService',response.data)
+		$rootScope.fetchComments=response.data;
 		return response.data;
 	},
 	function(errResponse){

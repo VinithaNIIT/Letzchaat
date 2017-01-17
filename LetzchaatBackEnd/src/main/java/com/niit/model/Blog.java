@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class Blog extends Error {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int blogid;
 	private String blogtitle;
 	private String description;

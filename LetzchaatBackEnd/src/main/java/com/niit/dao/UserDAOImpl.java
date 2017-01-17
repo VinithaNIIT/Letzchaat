@@ -173,6 +173,26 @@ log.debug("Staring of the USERDAO Method getUsername");
 			
 		}
 	}
+	
+	
+	private Integer getMaxId()
+	{
+		Integer maxid=1;
+		try {
+			Session session=getSession();
+			
+			String hql="select max(id) from Friend";
+			Query query=session.createQuery(hql);
+			maxid=(Integer)query.uniqueResult();
+			
+		} catch (Exception e) {
+			maxid=1;
+			e.printStackTrace();
+		}
+		return maxid+1;
+	}
+	
+	
 
 	public void sendFriendRequest(String username, String friendname) {
 		log.debug("Starting of the USERAO Method SENDFRIENDREQUEST");
@@ -183,6 +203,7 @@ log.debug("Staring of the USERDAO Method getUsername");
 		friend.setUsername(username);
 		friend.setFriend_request('P');
 		friend.setIs_online('N');
+		friend.setId(getMaxId());
 		session.save(friend);
 		tx.commit();
 		session.close();

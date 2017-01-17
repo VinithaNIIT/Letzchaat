@@ -10,6 +10,16 @@ $routeProvider
 	
 	
 })
+
+/*
+ * 
+ * Admin Mapping*/
+
+.when('/manage_users',{
+templateUrl : 'l_admin/manage_users.html',
+controller : 'UserController'
+})
+
 /*
  * 
  * User Mapping*/
@@ -109,6 +119,36 @@ templateUrl : 'l_friend/friend_details.html',
 controller : 'FriendController'
 })
 
+/*
+ * 
+ * jOB Mapping*/
+
+.when('/post_job',{
+templateUrl : 'l_job/post_job.html',
+controller : 'JobController'
+})
+.when('/view_applied_job',{
+templateUrl : 'l_job/view_applied_job.html',
+controller : 'JobController'
+})
+.when('/view_jobdetails',{
+templateUrl : 'l_job/view_jobdetails.html',
+controller : 'JobController'
+})
+.when('/search_job',{
+templateUrl : 'l_job/search_job.html',
+controller : 'JobController'
+})
+
+/*
+ * 
+ * Chat Mapping*/
+
+.when('/chat',{
+templateUrl : 'l_chat/chat.html',
+
+})
+
 
 .otherwise({redirectTo: '/'});
 });
@@ -134,12 +174,16 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 		 //$.inArray(x,A)==1 =>it will return 1(true) or -1(false).If the x is there in array A it will return true otherwise false.
 		 //Without Login they can access these pages.
 		 //If the location.path is not equal to /search_job or '/view_blog' then this is restricted page.
-	        var restrictedPage = $.inArray($location.path(), ['','/','/search_job','/view_blog','/login', '/registration','/list_blog','/create_blog','/create_forum','/view_forum','/list_forum/','/search_friend','/pending_request','/friend_details','/friend_list']) === -1;
+	        var restrictedPage = $.inArray($location.path(), ['','/','/search_job','/manage_users','/view_jobdetails','/post_job','/view_applied_job','/view_blog','/login', '/registration','/list_blog','/create_blog','/create_forum','/view_forum','/list_forum','/search_friend','/pending_request','/friend_details','/friend_list']) === -1;
 		 console.log("Navigating to page :" + $location.path())
 	        console.log("restrictedPage:" +restrictedPage)
 	        console.log("currentUser:" +$rootScope.currentUser.username)
 	        var loggedIn = $rootScope.currentUser.username;
 		 $rootScope.loggedIn=loggedIn;
+		/* var loggedInRole=$rootScope.currentUser.role;
+		 if(loggedInRole=='admin')
+			 {$rootScope.loggedInRole=loggedInRole;}*/
+		 
 		 console.log('value of loggedin',$rootScope.loggedIn)
 	        
 	        console.log("loggedIn:" +loggedIn)
@@ -159,7 +203,7 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 	        	{
 	        	
 				 var role = $rootScope.currentUser.role;
-				 var userRestrictedPage = $.inArray($location.path(), ["/post_job"]) == 0;
+				 /*var userRestrictedPage = $.inArray($location.path(), ["/post_job"]) == 0;
 				 
 				 if(userRestrictedPage && role!='admin' )
 					 {
@@ -167,7 +211,7 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 					  alert("You can not do this operation as you are logged as : " + role )
 					   $location.path('/login');
 					 
-					 }
+					 }*/
 				     
 	        	
 	        	}

@@ -1,5 +1,5 @@
 'use strict';
-app.controller('BlogCommentController', ['$scope','$location', '$routeParams','BlogService', function($scope,$location,$routeParams, BlogService){
+app.controller('BlogCommentController', ['$scope','$location', '$rootScope','BlogService', function($scope,$location,$rootScope, BlogService){
 	var self=this;
 	self.blogcomment={
 			commentid:'',
@@ -10,7 +10,7 @@ app.controller('BlogCommentController', ['$scope','$location', '$routeParams','B
 			errorCode:'',
 			errorMessage:''
 		};
-	var blogid=$routeParams.blogid;
+	
 	self.blogcomments=[];
 	
 console.log('INSIDE BLOG COMMENT CONTROLLER')
@@ -21,12 +21,21 @@ console.log('INSIDE BLOG COMMENT CONTROLLER')
 	console.log('blogid vlaue:',self.blogcomment.blogid)
 		
 		console.log('Saving new blog comment',self.blogcomment);
-		self.createBlogComment(self.blogcomment);
+		self.createBlogComment(self.blogcomment,blogid);
 	}
-	self.createBlogComment=function(blogcomment){
+	self.createBlogComment=function(blogcomment,blogid){
 		
+		console.log(' Inside creatBlogComment method in BlogComment Controller ')
+		if(!$rootScope.loggedIn)
+			{
+			alert('Please login to post comments');
+			console.log(' User not loggedin,cannot post comments')
+			$location.path('/login')
+			return
+			
+			}	
 		console.log('create blogs comment...',self.blogcomment);
-		BlogService.createBlogComment(blogcomment)
+		BlogService.createBlogComment(blogcomment,blogid)
 		.then(
 				function(d){
     				alert('Successfully created the blog comment')

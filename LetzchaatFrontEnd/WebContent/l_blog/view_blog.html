@@ -8,31 +8,31 @@
             <div class="post-body" style="color:black;">
              <p>
                {{selectedBlog.description}}
-             </p> 
+             </p> <br>
              
             </div>
             
             <div class="comments" ng-controller="BlogCommentController as commentctrl">
-             {{ctrl.blog.blogid}}
-              <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
-              <h3>Comments</h3>
-              <ul>
-               <li ng-repeat="value in commentctrl.comments">
-                 {{value.comments}}
-                 <cite>- <b>{{value.username}}</b></cite>
-               
+             
+            <!--   <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button><br><br><br> -->
+          <br>    <h3 style="color: black;text-decoration:underline;font: bold;font-size: 20px;font-style: normal;text-transform: uppercase;float:center;">Comments</h3><br><br>
+          <div style="display: block;padding: 10px;border: thin;">
+              <ul style="color:black;font: bold;font-size: 15px;font-style: normal;">
+               <li ng-repeat="value in fetchComments">
+                <div>
+                 <p style="color:orange ;font-size: 15px;"><b>{{value.username}}</b></p>
+                 <p style="color: black;font-size: 15px;"> {{value.comments}}<p>
+               </div>
                </li>
-              </ul>
-              {{selectedBlog.blogid}}
+              </ul><br><br>
+             </div>
               <form name="commentForm" ng-submit="commentForm.$valid && commentctrl.submit(selectedBlog.blogid)" novalidate>
               
                 
-                <h4>Add Comment</h4>
-                  <textarea ng-model="commentctrl.blogcomment.comments" cols="30" rows="10" required></textarea>
-                <label for="">by:</label>
-                  <input type="text" ng-model="commentctrl.blogcomment.username" required placeholder="Name"/>
-                  
-                  <input type="submit" value="Submit" />
+                <h3 style="color: black;font: bold;font-size: 20px;font-style: normal;text-transform: uppercase;">Add Comment</h3>
+                  <br><textarea ng-model="commentctrl.blogcomment.comments" cols="30" rows="10" required></textarea>
+               
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
         </div>

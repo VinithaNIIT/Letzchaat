@@ -1,5 +1,6 @@
 package com.niit.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -25,12 +26,49 @@ public class BlogDAOImpl implements BlogDAO {
 		return sessionFactory.openSession();
 	}
 	
+	private Integer getMaxId()
+	{
+		Integer maxid;
+		try {
+			Session session=getSession();
+			
+			String hql="select max(commentid) from BlogComment";
+			Query query=session.createQuery(hql);
+			maxid=(Integer)query.uniqueResult();
+			
+		} catch (Exception e) {
+			maxid=1;
+			e.printStackTrace();
+			return 1;
+		}
+		return maxid+1;
+	}
+	
+	private Integer getMax()
+	{
+		Integer maxid;
+		try {
+			Session session=getSession();
+			
+			String hql="select max(blogid) from Blog";
+			Query query=session.createQuery(hql);
+			maxid=(Integer)query.uniqueResult();
+			
+		} catch (Exception e) {
+			maxid=1;
+			e.printStackTrace();
+			return 1;
+		}
+		return maxid+1;
+	}
+	
 	public boolean insertBlog(Blog blog) {
 		log.debug("Starting of the BLOGDAO Method INSERTBLOG");
 		try {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(blog);
+			blog.setBlogid(getMax());
+			session.save(blog);
 			tx.commit();
 			session.close();
 			log.debug("Ending of the BLOGDAO Method INSERTBLOG");
@@ -88,14 +126,23 @@ public class BlogDAOImpl implements BlogDAO {
 		log.debug("Ending of the BLOGDAO Method GETBLOGLIST");
 		return b;
 	}
+	
+	
+	
+	
+	
 
-	public boolean insertBlogComment(BlogComment blogcomment) {
+	public boolean insertBlogComment(BlogComment blogcomment,String username,int blogid) {
 		
 		log.debug("Starting of the BLOGDAO Method INSERTBLOGCOMMENT");
 		try {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(blogcomment);
+			blogcomment.setCommentid(getMaxId());
+			blogcomment.setBlogid(blogid);
+			blogcomment.setUsername(username);
+			blogcomment.setCommented_date(new Date());
+			session.save(blogcomment);
 			tx.commit();
 			session.close();
 			log.debug("Ending of the BLOGDAO Method INSERTBLOGCOMMENT");

@@ -26,8 +26,8 @@
 					</thead>
 					<tbody ng-app="myApp" ng-controller="FriendController as ctrl">
 					
-					{{ctrl.friends}}
-						<tr ng-repeat="friend in ctrl.friends" >
+					
+						<tr ng-repeat="friend in selectedPending" >
 							<td data-th="Name">
 								{{friend.username}}
 								

@@ -27,20 +27,20 @@
 					<tbody ng-app="myApp" ng-controller="FriendController as ctrl">
 					<!-- <tr><td>{{selectedAccepted}}</td></tr> -->
 					<!-- <tr><td><a href="#" ng-click="ctrl.fetchAllAcceptedFriends()">Click here</a></td></tr> -->
-						<tr ng-repeat="friend in ctrl.friends" >
-						<td data-th="isOnline">{{friend.isonline}}
+						<tr ng-repeat="selectedfriends in selectedAccepted" >
+						<td data-th="isOnline">{{selectedfriends.isonline}}
 								<!-- <input type="number" class="form-control text-center" value="1"> -->
 								
 							</td>
 							<td data-th="Name">
-								{{friend.name}}
+								{{selectedfriends.name}}
 							</td>
-							<td data-th="Address" >{{friend.address}}</td>
-							<td data-th="EmailId">{{friend.email}}
+							<td data-th="Address" >{{selectedfriends.address}}</td>
+							<td data-th="EmailId">{{selectedfriends.email}}
 								<!-- <input type="number" class="form-control text-center" value="1"> -->
 							</td>
 							
-							<td data-th="Mobile" class="text-center">{{friend.mobile}}</td>
+							<td data-th="Mobile" class="text-center">{{selectedfriends.mobile}}</td>
 							<td class="actions" data-th="">
 								<!-- <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button> -->
 								<a href="#" >Chat</a>								

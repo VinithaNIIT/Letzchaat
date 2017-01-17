@@ -4,7 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="l_job_applied")
 public class JobApplied extends Error{
+	
+	/*@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="sequence_name")
+	@SequenceGenerator(name="sequence_name",sequenceName="sequence_name",allocationSize=1,initialValue=1)*/
 	
 	@Id
 	private int id;

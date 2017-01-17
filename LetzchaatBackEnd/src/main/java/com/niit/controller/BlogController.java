@@ -134,15 +134,15 @@ public class BlogController {
 	}
 	
 	
-	@RequestMapping(value="/createblogcomment/",method=RequestMethod.POST)
-	public ResponseEntity<BlogComment> createBlogcomment(@RequestBody BlogComment blogcomment,HttpSession session,HttpServletRequest request)
+	@RequestMapping(value="/createblogcomment/{blogid}",method=RequestMethod.POST)
+	public ResponseEntity<BlogComment> createBlogcomment(@RequestBody BlogComment blogcomment,@PathVariable int blogid,HttpSession session,HttpServletRequest request)
 	{
 		session=request.getSession(false);
 		String username=(String)session.getAttribute("username");
 		
-			blogComment.setCommented_date(new Date());
-			blogComment.setUsername(username);
-			if(blogDAOImpl.insertBlogComment(blogcomment)==true)
+			/*blogComment.setCommented_date(new Date());
+			blogComment.setUsername(username);*/
+			if(blogDAOImpl.insertBlogComment(blogcomment,username,blogid)==true)
 			{
 				blogComment.setErrorcode("200");
 				blogComment.setErrormessage("The user has successfully created the blogcomment");

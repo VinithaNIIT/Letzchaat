@@ -1,6 +1,6 @@
 package com.niit.controller;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -47,11 +47,12 @@ public class JobController {
 	@RequestMapping(value="/getalljobs/",method=RequestMethod.GET)
 	public ResponseEntity<List<Job>> getAllJobs()
 	{
-		log.debug("->->->->calling method listAllUsers");
+		log.debug("->->->->calling method listAllJobs");
 		List<Job> job=jobDAOImpl.getAllOpenedJobs();
 		return new ResponseEntity<List<Job>>(job, HttpStatus.OK);
 		
 	}
+	
 
 	@RequestMapping(value="/getmyappliedjobs/",method=RequestMethod.GET)
 	public ResponseEntity<List<JobApplied>> getMyAppliedJobs(HttpSession session)
@@ -158,6 +159,7 @@ public class JobController {
 	public ResponseEntity<Job> postJob(@RequestBody Job job)
 	{
 		job.setStatus('V');
+		job.setDate_time(new Date());
 		if(jobDAOImpl.insertJob(job)==false)
 		{
 			job.setErrorcode("404");

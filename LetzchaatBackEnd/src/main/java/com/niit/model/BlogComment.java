@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class BlogComment extends Error {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int commentid;
 	private int blogid;
 	private String comments;

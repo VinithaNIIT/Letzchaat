@@ -3,6 +3,7 @@ package com.niit.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,13 +26,18 @@ public class FriendDAOImpl implements FriendDAO {
 	public Session getSession() {
 		return sessionFactory.openSession();
 	}
+	
+	
+	
+	
+	
 
 	public List<Friend> friendList(String username) {
 		log.debug("Starting of the FRIENDDAO Method FriendList");
 		Session session=getSession();
 		Transaction tx=session.beginTransaction();
 		//String hql="from Friend where friend_name='"+username+"' and friend_request='P'";
-		String hql=" from User where username in(select username from Friend where friend_request='P')";
+		String hql="from User where username in(select username from Friend where friend_name='"+username+"' and  friend_request='P')";
 		Query query=session.createQuery(hql);
 		List<Friend>j=query.list();
 		log.debug("List of friends in FRiendDAO"+j);
@@ -92,16 +98,20 @@ log.debug("Staring of the FRIENDDAO Method getFRIENDNAME");
 		Session session=getSession();
 		Transaction tx=session.beginTransaction();
 		//String hql="from Friend where friend_name='"+username+"' and friend_request='P'";
-		String hql=" from User where username in(select username from Friend where friend_request='A')";
-		Query query=session.createQuery(hql);
-		List<Friend>j=query.list();
-		log.debug("List of friends in FRiendDAO"+j);
+		/*String hql="from User where username in(select username from Friend where friend_name='"+username+"'  and  friend_request='A' union select friend_name from Friend where username='"+username+"'  and  friend_request='A'  )";*/
+		/*Query query=session.createQuery(hql);*/
+		SQLQuery query=session.createSQLQuery("select * from l_user where username in (select username from l_friend where friend_name=? and  friend_request='A' union  select friend_name from l_friend where username=? and  friend_request='A')");
+		query.setString(0, username);
+		query.setString(1, username);
+		query.addEntity(User.class);
+		List<Friend>friends=query.list();
+		log.debug("List of friends in FRiendDAO"+friends);
 		tx.commit();
 		session.close();
 		log.debug("Username is"+username);
 		log.debug("Starting of the FRIENDDAO Method FriendList");
 		
-		return j;
+		return friends;
 	}
 
 	

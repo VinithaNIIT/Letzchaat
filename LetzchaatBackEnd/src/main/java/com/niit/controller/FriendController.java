@@ -1,5 +1,6 @@
 package com.niit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -70,7 +71,17 @@ public class FriendController {
 		log.debug("->->->->calling method listAllUsers");
 		String username=(String)session.getAttribute("username");
 		log.debug("Username in FriendController is"+username);
-		List<Friend> friends=friendDAOImp.friendAcceptedList(username);
+		List<Friend> friends=new ArrayList<Friend>();
+		
+		if(username==null)
+		{
+			friend.setErrorcode("404");
+			friend.setErrormessage("Please login to know your friends");
+			friends.add(friend);
+			return new ResponseEntity<List<Friend>>(friends, HttpStatus.OK);
+		}
+		
+		 friends=friendDAOImp.friendAcceptedList(username);
 
 		// errorCode :200 :404
 		// errorMessage :Success :Not found

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.dao.ForumDAOImpl;
+import com.niit.model.BlogComment;
 import com.niit.model.Forum;
+import com.niit.model.ForumComment;
 
 @RestController
 public class ForumController {
@@ -27,6 +29,8 @@ public class ForumController {
 	ForumDAOImpl forumDAOImpl;
 	@Autowired
 	Forum forum;
+	@Autowired
+	ForumComment forumComment;
 	
 	@RequestMapping(value="/createforum/",method=RequestMethod.POST)
 	public ResponseEntity<Forum> createForum(@RequestBody Forum forum,HttpSession session,HttpServletRequest request)
@@ -91,6 +95,96 @@ public class ForumController {
 		return new ResponseEntity<List<Forum>>(forumlist,HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value="/createforumcomment/{forumid}",method=RequestMethod.POST)
+	public ResponseEntity<ForumComment> createForumcomment(@RequestBody ForumComment forumcomment,@PathVariable int forumid,HttpSession session,HttpServletRequest request)
+	{
+		session=request.getSession(false);
+		String username=(String)session.getAttribute("username");
+		
+			/*blogComment.setCommented_date(new Date());
+			blogComment.setUsername(username);*/
+			if(forumDAOImpl.insertForumComment(forumcomment,username,forumid)==true)
+			{
+				forumcomment.setErrorcode("200");
+				forumcomment.setErrormessage("The user has successfully created the forumcomment");
+			return new ResponseEntity<ForumComment>(forumcomment,HttpStatus.OK);
+			
+		}
+			else{
+				log.debug("ENDING OF THE forum CONTROLLER METHOD => CREATEforumCOMMENT");
+				log.debug("Could not complete the operation.Please contact Admin");
+				forumcomment.setErrorcode("404");
+				forumcomment.setErrormessage("Could not complete the operation.Please contact Admin");
+				
+				return new ResponseEntity<ForumComment>(HttpStatus.OK);
+				
+			}
+		
+		
+	}
+	
+	@RequestMapping(value="/updateforumcomment/",method=RequestMethod.PUT)
+	public ResponseEntity<ForumComment> updateForumComment(@RequestBody ForumComment forumcomment,HttpSession session,HttpServletRequest request){
+		session=request.getSession(false);
+		String username=(String)session.getAttribute("username");
+		if(username == null)
+		{
+			log.debug("Useris not Loggedin");
+			forumcomment.setErrorcode("404");
+			forumcomment.setErrormessage("User is not Logged In");
+			
+			return new ResponseEntity<ForumComment>(HttpStatus.OK);
+		}
+		else{
+			forumDAOImpl.updateForumComment(forumcomment);
+			forumcomment.setErrorcode("200");
+			forumcomment.setErrormessage("The user has successfully updated the forumcomment");
+		return new ResponseEntity<ForumComment>(forumcomment,HttpStatus.OK);
+		
+		}
+		
+		
+	}
+	@RequestMapping(value="/deleteforumcomment/{forumid}",method=RequestMethod.DELETE)
+	public ResponseEntity<ForumComment> deleteBlogComment(@PathVariable int forumid,HttpSession session,HttpServletRequest request)
+	{
+		session=request.getSession(false);
+		String username=(String)session.getAttribute("username");
+		if(username == null)
+		{
+			log.debug("Useris not Loggedin");
+			forumComment.setErrorcode("404");
+			forumComment.setErrormessage("User is not Logged In");
+			
+			return new ResponseEntity<ForumComment>(HttpStatus.OK);
+		}
+		else{
+			forumDAOImpl.deleteForumComment(forumid);
+			forumComment.setErrorcode("200");
+			forumComment.setErrormessage("The user has successfully deleted the blogcomment");
+		return new ResponseEntity<ForumComment>(forumComment,HttpStatus.OK);
+		}
+	}
+	@RequestMapping(value="/getforumcomment/{forumid}",method=RequestMethod.GET)
+	public ResponseEntity<ForumComment> getBlogComment(@PathVariable int forumid)
+	{
+		forumComment=forumDAOImpl.getForumCommentById(forumid);
+		forumComment.setErrorcode("200");
+		forumComment.setErrormessage("Retrieved the blogcomment");
+		return new ResponseEntity<ForumComment>(forumComment,HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/forumscomment/",method=RequestMethod.GET)
+	public ResponseEntity<List<ForumComment>>getAllForumsComment()
+	{
+		 
+		List<ForumComment>forumlist= forumDAOImpl.getForumCommentList();
+		forumComment.setErrorcode("200");
+		forumComment.setErrormessage("Fetched All the forumscomment");
+		forumlist.add(forumComment);
+		return new ResponseEntity<List<ForumComment>>(forumlist,HttpStatus.OK);
+	}
 
 	
 	

@@ -24,9 +24,9 @@ public class JobDAOImpl implements JobDAO {
 		return sessionFactory.openSession();
 	}
 	
-	private int getMaxId()
+	private Integer getMaxId()
 	{
-		int maxid=100;
+		Integer maxid=1;
 		try {
 			Session session=getSession();
 			
@@ -35,8 +35,9 @@ public class JobDAOImpl implements JobDAO {
 			maxid=(Integer)query.uniqueResult();
 			
 		} catch (Exception e) {
-			maxid=100;
+			maxid=1;
 			e.printStackTrace();
+			return 1;
 		}
 		return maxid+1;
 	}
@@ -44,7 +45,7 @@ public class JobDAOImpl implements JobDAO {
 	public List<Job> getAllOpenedJobs() {
 		Session session=getSession();
 		Transaction tx=session.beginTransaction();
-		String hql="from Job where status='v'";
+		String hql="from Job where status='V'";
 		Query query=session.createQuery(hql);
 		List<Job>j=query.list();
 		tx.commit();
@@ -133,7 +134,7 @@ public class JobDAOImpl implements JobDAO {
 		
 		Session session=getSession();
 		Transaction tx=session.beginTransaction();
-		String hql="from JobApplied where username='"+username+"'";
+		String hql="from Job where jobid in(select jobid from JobApplied where username='"+username+"')";
 		Query query=session.createQuery(hql);
 		List<JobApplied>j=query.list();
 		tx.commit();
@@ -145,7 +146,7 @@ public class JobDAOImpl implements JobDAO {
 	public JobApplied getJobApplied(String username, String jobid) {
 		Session session=getSession();
 		Transaction tx=session.beginTransaction();
-		String hql="from JobApplied where usename='"+username+"' and jobid='"+jobid+"'";
+		String hql="from JobApplied where username='"+username+"' and jobid='"+jobid+"'";
 		Query query=session.createQuery(hql);
 		JobApplied jobapplied=(JobApplied)query.uniqueResult();
 		tx.commit();

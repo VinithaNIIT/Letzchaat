@@ -1,19 +1,21 @@
 package com.niit.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class ForumComment {
+@Table(name="l_forum_comment")
+public class ForumComment extends Error {
 	
 	@Id
 	private int id;
-	private String forumid;
+	private int forumid;
 	private String username;
 	private String forum_comment;
 	private Date commented_date;
@@ -23,10 +25,10 @@ public class ForumComment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getForumid() {
+	public int getForumid() {
 		return forumid;
 	}
-	public void setForumid(String forumid) {
+	public void setForumid(int forumid) {
 		this.forumid = forumid;
 	}
 	public String getUsername() {

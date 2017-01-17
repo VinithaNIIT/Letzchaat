@@ -124,9 +124,9 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
                  );
  },
  
- friendRequest:function(username){
+ friendRequest:function(friendname){
 	 console.log('friend Request Method in UserService')
-	 return $http.post(BASE_URL+'/friendRequest/',username)
+	 return $http.post(BASE_URL+'/friendRequest/',friendname)
 	 .then(
 			 function(response){
                  return response.data;

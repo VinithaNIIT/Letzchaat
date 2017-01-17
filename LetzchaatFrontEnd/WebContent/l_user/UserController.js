@@ -142,12 +142,13 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
 	    
 	    //better to call fetchAllUsers ==>after login
 	 
-	 self.friendRequest=function(username){
+	 self.friendRequest=function(friendname){
 		 console.log('Friend request method in UserController')
-		 UserService.friendRequest(username)
+		 UserService.friendRequest(friendname)
 		 .then(
-				 function(response){
-						console.log(response.data);
+				 function(d){
+						console.log(d);
+						self.users=d;
 						alert('Friend request Send')
 						self.getAllUsers
 						$location.path('/search_friend')

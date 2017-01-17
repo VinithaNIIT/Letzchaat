@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.niit.dao.FriendDAOImpl;
 import com.niit.dao.UserDAOImpl;
 import com.niit.model.User;
 
@@ -28,6 +28,13 @@ public class UserController {
 	UserDAOImpl userDAOImpl;
 	@Autowired
 	User user;
+	
+	@Autowired
+	HttpSession session;
+	@Autowired
+	FriendDAOImpl friendDAOImpl;
+	
+	
 	
 	@RequestMapping(value="/login/",method=RequestMethod.POST)
 	public ResponseEntity<User> validateUser(@RequestBody User user,HttpServletRequest request,HttpSession session)
@@ -191,6 +198,20 @@ public class UserController {
 			user.setErrorcode("404");
 			user.setErrormessage("Could not update the status to " + status);
 		} else {
+			
+			String role=(String)session.getAttribute("role");
+			if(role==null ||role.isEmpty()){
+				user.setErrorcode("404");
+				user.setErrormessage("You are not logged in");
+				return user;
+			}
+			if(!role.equalsIgnoreCase("admin"))
+			{
+				user.setErrorcode("404");
+				user.setErrormessage("You are not admin.You cannot do this operation");
+				log.debug("You are not admin.You cannot do this operation");
+				return user;
+			}
 
 			user.setStatus(status);
 			user.setReason(reason);
@@ -205,7 +226,7 @@ public class UserController {
 
 	}
 	@RequestMapping(value = "/friendRequest/", method = RequestMethod.POST)
-	public ResponseEntity<User> friendRequest(@RequestBody String username,HttpSession session) {
+	public ResponseEntity<User> friendRequest(@RequestBody String friendname,HttpSession session) {
 		log.debug("->->calling method myProfile");
 		String currentusername = (String) session.getAttribute("username");
 		if(currentusername==null)
@@ -218,12 +239,39 @@ log.debug("->->->-> User does not exist wiht id" + currentusername);
 		}
 		else
 		{
-		userDAOImpl.sendFriendRequest(currentusername, username);
+			
+			if(isUserExist(friendname)==false)
+			{
+				user.setErrorcode("404");
+				user.setErrormessage("User does not exist with the id:"+ friendname);
+				return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+				
+			}
+			/*if(friendDAOImpl.getFriendRequest(currentusername, friendname)!=null){
+				user.setErrorcode("404");
+				user.setErrormessage("You have already send the frined request to id:"+ friendname);
+				return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+			}*/
+		
+			
+		userDAOImpl.sendFriendRequest(currentusername, friendname);
+		/*user.setErrorcode("200");
+		user.setErrormessage("User does not exist with the id:"+ friendname);*/
 		
 		log.debug("->->->-> User exist with username" + currentusername);
-		log.debug("friend_name is:"+username);
-		return new ResponseEntity<User>( HttpStatus.OK);
+		log.debug("friend_name is:"+friendname);
+			
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	}
+	
+	
+	
+	private boolean isUserExist(String id){
+		if(userDAOImpl.getUsername(id)==null)
+			return false;
+		else 
+			return true;
 	}
 	
 	@RequestMapping(value="/getUsers",method=RequestMethod.GET)

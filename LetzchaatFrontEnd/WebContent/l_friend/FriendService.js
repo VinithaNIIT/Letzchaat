@@ -11,6 +11,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
                      .then(
                              function(response){
                             	 console.log('fetchAllPendingFriends details iin FriendController',response.data)
+                            	  $rootScope.selectedPending=response.data;
                                  return response.data;
                                  
                              }, 
