@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="container" ng-app="myApp" ng-controller="EventController as ctrl">
+            <form class="form-horizontal" role="form" ng-submit="ctrl.submit()">
+                <h2 style="font:bold;font-size:30px; text-align: center;">CREATE EVENT FORM</h2>
+                <div class="form-group">
+                    <label for="eventId" class="col-sm-3 control-label" style="text-align: left;">Event Id</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="eventid" placeholder="Event Id" ng-model="ctrl.event.eventid" required="required" class="form-control"  autofocus>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Eventname" class="col-sm-3 control-label"style="text-align: left;">Event Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="eventname" placeholder="Event Name" class="form-control" required="required" ng-model="ctrl.event.event_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date" class="col-sm-3 control-label"style="text-align: left;">Date Of Event</label>
+                    <div class="col-sm-9">
+                        <input type="date" id="date" placeholder="Date Of Event" class="form-control" required="required" ng-model="ctrl.event.date_of_event">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="venue" class="col-sm-3 control-label"style="text-align: left;">Venue</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="venue" placeholder="Venue" required="required" class="form-control" ng-model="ctrl.event.venue">
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="description" class="col-sm-3 control-label"style="text-align: left;">Description</label>
+                    <div class="col-sm-9">
+                        <textarea id="description" placeholder="Description" class="form-control" required="required" ng-model="ctrl.event.description"></textarea>
+                    </div>
+                </div>
+                
+                
+                 <div class="form-group">
+                    <label for="image" class="col-sm-3 control-label"style="text-align: left;">Image:1</label>
+                    <div class="col-sm-9">
+                        <input type="file" id="file" class="form-control" >
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="image" class="col-sm-3 control-label"style="text-align: left;">Image:2</label>
+                    <div class="col-sm-9">
+                        <input type="file" id="file" class="form-control" >
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="image" class="col-sm-3 control-label"style="text-align: left;">Image:3</label>
+                    <div class="col-sm-9">
+                        <input type="file" id="file" class="form-control" >
+                    </div>
+                </div>
+                
+                
+               
+              
+               
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <input type="submit" class="btn btn-primary btn-block" value="CREATE EVENT" style="width: 400px;" onclick="return validatePassword()"/>
+                    </div>
+                </div>
+            </form> <!-- /form -->
+          
+        </div> <!-- ./container -->

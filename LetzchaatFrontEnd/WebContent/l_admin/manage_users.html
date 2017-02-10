@@ -2,7 +2,7 @@
 <div ng-show="!loggedIn">
 <div class="alert alert-danger fade in">
       You are not logged in.. Please login &nbsp; <a href="#/login"> here</a>
-        &nbsp; to Create a blog
+        &nbsp; to Manage Users
          </div>
          
         
@@ -10,6 +10,7 @@
 </div>
 
 <div ng-show="loggedIn">
+<div ng-show="role=='Admin">
 	<table id="search" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -54,6 +55,7 @@
 					</tbody>
 					
 				</table>
+				</div>
 			<!-- 	</div> -->
 				</div>
 </div>

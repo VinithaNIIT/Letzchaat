@@ -52,14 +52,14 @@ public class FriendController {
 		if (friends.isEmpty()||friends==null) {
 			friend.setErrorcode("404");
 			friend.setErrormessage("No friends are available");
-			friends.add(friend);
+			/*friends.add(friend);*/
 			
 		}
 		else
 		{
 			friend.setErrorcode("200");
 			friend.setErrormessage("Successfully retrieved the values");
-			friends.add(friend);
+			/*friends.add(friend);*/
 		}
 
 		return new ResponseEntity<List<Friend>>(friends, HttpStatus.OK);
@@ -82,6 +82,7 @@ public class FriendController {
 		}
 		
 		 friends=friendDAOImp.friendAcceptedList(username);
+		 System.out.println("Friend controller arraylist friends value 1:"+friends);
 
 		// errorCode :200 :404
 		// errorMessage :Success :Not found
@@ -97,7 +98,8 @@ public class FriendController {
 		{
 			friend.setErrorcode("200");
 			friend.setErrormessage("Successfully retrieved the values");
-			friends.add(friend);
+			/*friends.add(friend);*/
+			System.out.println("Friend controller arraylist friends value 2:"+friends);
 		}
 
 		return new ResponseEntity<List<Friend>>(friends, HttpStatus.OK);
@@ -124,7 +126,7 @@ public class FriendController {
 		{
 			log.debug("Accept friend requets"+friend);
 			friend.setErrorcode("200");
-			friend.setErrormessage("Successfully udated the status as");
+			friend.setErrormessage("The friend request has been accepted successfully");
 		}
 		else
 		{
@@ -153,7 +155,7 @@ public class FriendController {
 		{
 			log.debug("Friend request status"+friend);
 			friend.setErrorcode("200");
-			friend.setErrormessage("Successfully updated friend request the status as");
+			friend.setErrormessage("The friend Request is rejected");
 		}
 		else
 		{

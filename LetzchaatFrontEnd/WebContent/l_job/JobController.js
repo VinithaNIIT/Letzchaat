@@ -8,8 +8,8 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 			status:'',
 			description:'',
 			date_time:'',
-			errorCode:'',
-			errorMessage:''
+			errorcode:'',
+			errormessage:''
 		};
 	self.jobs=[];
 	
@@ -60,12 +60,34 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 		);
 	};
 	
+	
+	console.log('getAllAppliedJobs')
+	self.getAllAppliedJobs=function(){
+		console.log(' Inside getAllAppliedJobs method in job Controller ')
+		JobService.getAllAppliedJobs()
+		.then(function(d){
+			self.jobs=d;
+			
+			console.log('value in getAllAppliedJobs',self.jobs)
+			
+		},
+		
+		function(errResponse){
+			console.error('Error while fetching the data');
+		}
+		
+		);
+	};
+	
+	
+	
+	
 	self.getJobDetails=function(jobid){
 		console.log(' Inside getJobDetails method in job Controller ',jobid)
 		JobService.getJobDetails(jobid)
 		.then(function(d){
 			self.jobs=d;
-			location.path('/view_jobdetails')
+			$location.path('/view_jobdetails')
 			console.log('value in jobs',self.jobs)
 			
 		},
@@ -92,8 +114,20 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 			self.job=d;
 			
 			console.log('value in jobs',self.job)
-			console.log('You have successfully applied for job')
-			alert('You have successfully applied for job')
+			if(self.job.errorcode=="404"){
+				alert('You have already applied for this job',self.job.errormessage)
+					$location.path('/home')
+				
+			}
+			else{
+				alert('You have successfully applied for job',self.job.errormessage)
+					$location.path('/home')
+				
+			}
+			
+			/*console.log('You have successfully applied for job')
+			alert('You have successfully applied for job')*/
+		
 			
 		},
 		
@@ -129,14 +163,15 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 		
 	};
 	
-	self.rejectJob=function(username){
-		var jobid=$rootScope.selectedJob.jobid;
+	self.rejectJob=function(username,jobid){
+		/*var jobid=$rootScope.selectedJob.jobid;*/
 		JobService.rejectJob(username,jobid)
 		.then(function(d){
 			
 			self.jobs=d;
 			alert('You have successfully rejected the job application');
 			console.log('You have successfully rejected the job application',self.jobs)
+			$location.path('/manage_applied_jobs')
 		},
 		function(errResponse)
 		{
@@ -147,14 +182,15 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 		
 	};
 	
-	self.callForInterview=function(username){
-		var jobid=$rootScope.selectedJob.jobid;
+	self.callForInterview=function(username,jobid){
+		/*var jobid=$rootScope.selectedJob.jobid;*/
 		JobService.callForInterview(username,jobid)
 		.then(function(d){
 			
 			self.jobs=d;
 			alert('Application status changed as call for interview');
 			console.log('Application status changed as call for interview',self.jobs)
+			$location.path('/manage_applied_jobs')
 		},
 		function(errResponse)
 		{
@@ -165,14 +201,15 @@ app.controller('JobController', ['$scope','$location','$rootScope', 'JobService'
 		
 	};
 	
-	self.selectUser=function(username){
-		var jobid=$rootScope.selectedJob.jobid;
+	self.selectUser=function(username,jobid){
+		/*var jobid=$rootScope.selectedJob.jobid;*/
 		JobService.selectUser(username,jobid)
 		.then(function(d){
 			
 			self.jobs=d;
 			alert('Application status changed as Selected');
 			console.log('Application status changed as Selected',self.jobs)
+			$location.path('/manage_applied_jobs')
 		},
 		function(errResponse)
 		{

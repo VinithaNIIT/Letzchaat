@@ -8,7 +8,7 @@ public class OutputMessage extends Message {
 	
 	public OutputMessage(Message original,Date time)
 	{
-		super(original.getId(),original.getMessage(),original.getName());
+		super(original.getId(),original.getMessage(),original.getName(),original.getFriend_name());
 		this.time=time;
 		
 	}

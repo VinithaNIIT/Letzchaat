@@ -13,6 +13,9 @@ public interface FriendDAO {
 	public Friend getFriendRequest(String username, String friend_name);
 	public User getFriendDetails(String friendname);
 	public List<Friend> friendAcceptedList(String username);
+	public void setOnline(String username);
+
+	public void setOffLine(String username);
 	
 
 }

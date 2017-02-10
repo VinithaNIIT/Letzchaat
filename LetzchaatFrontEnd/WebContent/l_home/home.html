@@ -1,0 +1,83 @@
+<div class="container" ng-app="myApp" ng-controllere="UserController as ctrl">
+
+<div class="col-md-2" >
+									<img src="images/{{currentUser.username}}.jpg" alt="Profile Picture" style="width=10px ;height=7px;" >
+								</div><br>
+
+<div class="nav navbar-nav navbar-left">
+
+<p style="font-size: 20px;font: bold;color: black;">Welcome: {{loggedIn}}</p>
+</div><br><br>
+<div class="nav navbar-nav navbar-center">
+<p style="font-size: 20px;font: bold;color: black;">You LoggedIn as: {{role}}</p>
+
+</div><br><br><br><br>
+
+<!-- <div class="nav navbar-nav navbar-right">
+<a href="#/myprofile" ng-click="ctrl.myProfile()" >My Profile</a>
+</div> -->
+<div ng-show="role=='Admin'">
+<div class="container-fluid" >
+<div ng-include src="'l_admin/admin_menu.html'"></div>
+</div>
+</div>
+
+ <div class="row"  ng-hide="role=='Admin'">
+		 
+  
+  <div class="panel-group" ng-controller="FriendController as fctrl">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1" ng-click="fctrl.fetch1()" >My Friends</a>
+      
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+        
+        <div ng-repeat="selectedfriends in selectedAccepted">
+        <p style="font: bold;font-size: 18px;color: black;">{{selectedfriends.name}}</p><br>
+        </div>
+        
+        </div>
+       
+      </div>
+    </div>
+  </div><hr><hr>
+  <div class="panel-group" ng-controller="JobController as jctrl">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse2"  ng-click="jctrl.appliedJobs()" >My Applied Jobs</a>
+      
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+        
+        <div ng-repeat="job in getAppliedJob">
+       <!--  <p style="font: bold;font-size: 18px;color: black;">JobId:  {{job.jobid}}</p><br> -->
+        <a   style="font: bold;font-size: 18px;color: blue;" href="#/view_jobdetails"  ng-click="jctrl.getJobDetails(job.jobid)">{{job.jobid}}</a><br>
+        </div>
+        
+        </div>
+       
+      </div>
+    </div>
+  </div>
+		
+		
+	</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+

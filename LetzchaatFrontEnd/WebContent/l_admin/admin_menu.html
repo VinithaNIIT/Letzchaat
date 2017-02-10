@@ -1,0 +1,36 @@
+<!-- <div class="container">
+					
+					<nav class="navbar navbar-inverse " style="color:black;font: bold;">
+  <div class="container-fluid" >
+  
+    <ul class="nav nav-tabs nav-stacked" >
+   
+    
+     
+   				<li><a href="threecolumn.html">Manage Users</a></li>
+   				<li><a href="threecolumn.html">Manage Applied Jobs</a></li>
+							
+							
+    </ul>
+  
+ <div >
+ </div>
+ </div>
+ </nav>
+ </div> -->
+ 
+  <div class='container' ng-app="myApp" ng-controller="JobController as ctrl">
+   
+   
+    <div id='content' class='row-fluid'>
+    <div class='span2 sidebar'>
+        <ul class="nav nav-tabs nav-stacked">
+          <li><a href="#/manage_users">Manage Users</a></li>
+          <li><a href="#/manage_applied_jobs" ng-click="ctrl.getAllAppliedJobs()">Manage Applied Jobs</a></li>
+         
+        </ul>
+      </div>
+    
+     
+    </div>
+  </div>

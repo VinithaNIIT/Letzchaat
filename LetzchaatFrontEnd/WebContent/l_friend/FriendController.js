@@ -117,7 +117,7 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
 							self.friend = d;
 							/*self.fetchAllPendingFriends*/
 							/*$location.path("/manage_friends")*/
-							alert('Friend request accepted',self.friend.errorMessage)
+							alert(self.friend.errormessage)
 							
 						},
 						
@@ -137,7 +137,8 @@ app.controller('FriendController', ['$scope', 'FriendService','$rootScope','$loc
 							self.friend = d;
 							self.fetchAllPendingFriends
 						/*	$location.path("/manage_friends")*/
-							alert(self.friend.errorMessage)
+							alert(self.friend.errormessage)
+							$location.path('/home')
 							
 						},
 						function(errResponse) {

@@ -8,7 +8,8 @@ app.controller('EventController', ['$scope','$location', 'EventService', functio
 			venue:'',
 			description:'',
 			errorCode:'',
-			errorMessage:''
+			errorMessage:'',
+			imageurl:''
 		};
 	self.events=[];
 	

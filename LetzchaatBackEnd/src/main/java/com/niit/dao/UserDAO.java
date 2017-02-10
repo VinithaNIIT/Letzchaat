@@ -20,5 +20,6 @@ public interface UserDAO {
 	public void Update(User user);
 	public void sendFriendRequest(String username,String friendname);
 	public List<User> getAllUsers(String username);
+	
 
 }

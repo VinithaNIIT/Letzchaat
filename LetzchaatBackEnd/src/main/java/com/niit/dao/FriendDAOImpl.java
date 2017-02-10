@@ -114,6 +114,44 @@ log.debug("Staring of the FRIENDDAO Method getFRIENDNAME");
 		return friends;
 	}
 
+
+
+
+
+
+	public void setOnline(String username) {
+		log.debug("Starting of the FRIENDDAO Method SETONLINE");
+		Session session = getSession();
+		 Transaction tx = session.beginTransaction();
+		String s = "update Friend set is_online='Y' where (username='"+username+"' or friend_name='"+username+"')";
+		log.debug("String value"+s);
+		Query query = session.createQuery(s);
+		query.executeUpdate();
+		 tx.commit();
+		session.close();
+		log.debug("Ending of the FRIENDDAO Method SETONLINE");
+		
+	}
+
+
+
+
+
+
+	public void setOffLine(String username) {
+		log.debug("Starting of the FRIENDDAO Method SETOFFLINE");
+		Session session = getSession();
+		 Transaction tx = session.beginTransaction();
+		String s = "update Friend set is_online='N' where (username='"+username+"' or friend_name='"+username+"')";
+		log.debug("String value"+s);
+		Query query = session.createQuery(s);
+		query.executeUpdate();
+		 tx.commit();
+		session.close();
+		log.debug("Ending of the FRIENDDAO Method SETOFFLINE");
+		
+	}
+
 	
 
 }

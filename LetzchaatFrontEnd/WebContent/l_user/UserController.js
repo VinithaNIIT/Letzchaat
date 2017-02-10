@@ -15,6 +15,7 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
     		errorcode:'',
     		errormessage:''
     		
+    		
     
     
     };
@@ -37,11 +38,14 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
     		function(d)	{
     			
     			self.user=d;
+    			console.log('User values in usercontroller',self.user)
     			console.log("user.errorcode: " + self.user.errorcode)
+    			
     			if(self.user.errorcode=="404"){
     				
-    				/*alert("Invalid Credentials...Please try again!")*/
-    				alert(self.user.errormessage);
+    				alert(self.user.errormessage)
+    				console.log('ErrorMessage',self.user.errormessage)
+    			/*	alert(self.user.errormessage);*/
     				self.user.username = "";
 					self.user.password = "";
     			}
@@ -50,6 +54,7 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
     				console.log("Valid credentials. Navigating to home page.")
     				 /*self.fetchAllUsers();*/
     				$rootScope.currentUser=self.user;
+    				console.log('User values in usercontroller:2',$rootScope.currentUser)
     				
     				/*{
     						
@@ -67,7 +72,7 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
     				 $cookieStore.put('currentUser', $rootScope.currentUser);
     				 
     				console.log($rootScope.currentUser)
-    				$location.path('/');
+    				$location.path('/home');
     			}
     			
     		},
@@ -168,7 +173,7 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
 				.then(
 						function(d) {
 							self.users = d;
-							$location.path("/myProfile")
+							$location.path("/myprofile")
 						},
 						function(errResponse) {
 							console
@@ -185,7 +190,9 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
 							self.user = d;
 							self.fetchAllUsers
 							$location.path("/manage_users")
-							alert(self.user.errorMessage)
+							console.log('Error Message is',self.user.errormessage)
+							alert(self.user.errormessage)
+							
 							
 						},
 						
@@ -205,7 +212,7 @@ app.controller('UserController', ['$scope', 'UserService','$rootScope','$locatio
 							self.user = d;
 							self.fetchAllUsers
 							$location.path("/manage_users")
-							alert(self.user.errorMessage)
+							alert(self.user.errormessage)
 							
 						},
 						null );

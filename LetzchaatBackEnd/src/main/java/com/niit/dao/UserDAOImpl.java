@@ -37,16 +37,15 @@ User user;
 		Session session=getSession();
 		//Transaction tx=session.beginTransaction();
 		/*boolean userfound=false;*/
-		String sql_query="from User where username=:username and password=:password";
+		String sql_query="from User where username=:username and password=:password ";
 		  Query query=session.createQuery(sql_query);
 		  query.setParameter("username", username);
 		  query.setParameter("password", password);
+		  /*query.setParameter("status", status);*/
 		 // query.setParameter("role", role);
 		  List<User> list=query.list();
+		  System.out.println("List value:"+list);
 		  if((list!=null)&&(list.size()>0)){
-			 
-
-		
 		  session.close();
 		  log.debug("Ending of the Method USERDAOIMPL :: VALIDATE");
 		  return list.get(0);
@@ -120,7 +119,7 @@ User user;
 		log.debug("Starting of the USERDAO Method SETONLINE");
 		Session session = getSession();
 		 Transaction tx = session.beginTransaction();
-		String s = "update User set isOnline='Y' where username='"+username+"'";
+		String s = "update User set isonline='Y' where username='"+username+"'";
 		log.debug("String value"+s);
 		Query query = session.createQuery(s);
 		query.executeUpdate();
@@ -136,7 +135,7 @@ User user;
 		log.debug("Starting of the USERDAO Method SETOFFLINE");
 		Session session = getSession();
 		 Transaction tx = session.beginTransaction();
-		String s = "update User set isOnline='N' where username='"+username+"'";
+		String s = "update User set isonline='N' where username='"+username+"'";
 		log.debug("String value"+s);
 		Query query = session.createQuery(s);
 		query.executeUpdate();

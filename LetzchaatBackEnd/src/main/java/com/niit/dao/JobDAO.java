@@ -16,6 +16,7 @@ public interface JobDAO {
 	public List<JobApplied> getMyAppliedJob(String username);
 	public JobApplied getJobApplied(String username,String jobid);
 	public JobApplied getJobApplied(String jobid);
+	public List<JobApplied> getAllAppliedJobs();
 	
 	
 

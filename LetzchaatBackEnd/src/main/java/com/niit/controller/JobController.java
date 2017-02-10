@@ -81,29 +81,29 @@ public class JobController {
 		
 	}
 	
-	@RequestMapping(value = "/selectuser/{username}/{jobid}/{remark}", method = RequestMethod.PUT)
-	public ResponseEntity<JobApplied> selectuser(@PathVariable("username") String username,@PathVariable("jobid") String jobid,@PathVariable("remark") String remark) {
+	@RequestMapping(value = "/selectuser/{username}/{jobid}", method = RequestMethod.PUT)
+	public ResponseEntity<JobApplied> selectuser(@PathVariable("username") String username,@PathVariable("jobid") String jobid) {
 		log.debug("->->->->calling method jobUpdate");
-		jobapplied=updateJobAppliedStatus(username, jobid, 'S', remark);
+		jobapplied=updateJobAppliedStatus(username, jobid, 'S');
 		return new ResponseEntity<JobApplied>(jobapplied,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/callforinterview/{username}/{jobid}/{remark}", method = RequestMethod.PUT)
-	public ResponseEntity<JobApplied> callForInterview(@PathVariable("username") String username,@PathVariable("jobid") String jobid,@PathVariable("remark") String remark) {
+	@RequestMapping(value = "/callforinterview/{username}/{jobid}", method = RequestMethod.PUT)
+	public ResponseEntity<JobApplied> callForInterview(@PathVariable("username") String username,@PathVariable("jobid") String jobid) {
 		log.debug("->->->->calling method jobUpdate");
-		jobapplied=updateJobAppliedStatus(username, jobid, 'C', remark);
+		jobapplied=updateJobAppliedStatus(username, jobid, 'C');
 		return new ResponseEntity<JobApplied>(jobapplied,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/rejectjobapplied/{username}/{jobid}/{remark}", method = RequestMethod.PUT)
-	public ResponseEntity<JobApplied> rejectJobApplied(@PathVariable("username") String username,@PathVariable("jobid") String jobid,@PathVariable("remark") String remark) {
+	@RequestMapping(value = "/rejectjobapplied/{username}/{jobid}", method = RequestMethod.PUT)
+	public ResponseEntity<JobApplied> rejectJobApplied(@PathVariable("username") String username,@PathVariable("jobid") String jobid) {
 		log.debug("->->->->calling method jobUpdate");
-		jobapplied=updateJobAppliedStatus(username, jobid, 'R', remark);
+		jobapplied=updateJobAppliedStatus(username, jobid, 'R');
 		return new ResponseEntity<JobApplied>(jobapplied,HttpStatus.OK);
 	}
 	
 	
-	private JobApplied updateJobAppliedStatus(String username, String jobid, char status,String reason) {
+	private JobApplied updateJobAppliedStatus(String username, String jobid, char status) {
 		log.debug("Starting of the method updateStatus");
 		
 		
@@ -136,7 +136,7 @@ public class JobController {
 		}
 		else{*/
 		jobapplied.setStatus(status);
-		jobapplied.setRemarks(reason);
+	/*	jobapplied.setRemarks(reason);*/
 		if(jobDAOImpl.updateJob(jobapplied))
 		{
 			jobapplied.setErrorcode("200");
@@ -193,6 +193,7 @@ public class JobController {
 			if(jobDAOImpl.getJobApplied(username, jobid)==null)
 			{
 				jobapplied.setJobid(jobid);
+				System.out.println("JobId in Jobcontroller"+jobid);
 				jobapplied.setUsername(username);
 				jobapplied.setStatus('N'); //N=>Newly Applied,C=>Call for interview ,S=>selected
 				jobapplied.setDate_applied(new Date(System.currentTimeMillis()));
@@ -224,6 +225,13 @@ public class JobController {
 		else
 			return false;
 		
+	}
+	
+	
+	@RequestMapping(value="/getallappliedjobs/",method=RequestMethod.GET)
+	public ResponseEntity<List<JobApplied>> getAllAppliedJobs(){
+		List<JobApplied> jobapplied=jobDAOImpl.getAllAppliedJobs();
+		return new ResponseEntity<List<JobApplied>>(jobapplied, HttpStatus.OK);
 	}
 
 }

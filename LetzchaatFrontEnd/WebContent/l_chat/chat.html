@@ -1,33 +1,71 @@
-<body ng-app="myApp">
-<p>
-<p>
-<p>
-<p>
-<p>
-<div ng-controller="ChatController" class="container">
+     
+     <div class="container" ng-app="myApp"  ng-controller="ChatController as ctrl" style="position: relative;font-size: 20px;width:100%;">
+     <div ng-show="!loggedIn">
+<div class="alert alert-danger fade in" >
+      You are not logged in.. Please login &nbsp; <a href="#/login"> here</a>
+        &nbsp; to Chat with your Friends
+         </div>
+        
 
-<p>
-<p>
-<p>
-<p>
-<p>
-<form ng-submit="addMessage()" name="messageForm">
- <input type="text" placeholder="Compose a new message..." ng-model="message" />
-   <div class="info">
-     <span class="count" ng-bind="max - message.length" ng-class="{danger: message.length > max}">140</span>
-       <button ng-disabled="message.length > max || message.length === 0">send</button>
-       </div>
-      </form>
-     <hr />
-     {{messages}}
-     <p ng-repeat="message in messages | orderBy: 'time':true" class="message">
-      <!--  <time>{{message.time | date: 'HH:mm'}}</time>
-         <span ng-class="{self: message.self}">{{message.message}}</span> -->
+</div>
+
+<div ng-show="loggedIn">
+     
+     <form ng-submit="addMessage()" name="messageForm">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                   
+                </div>
+            <div >
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix" ng-repeat="message in messages | orderBy: 'time':true" class="message"><span class="chat-img pull-left" ></span>
+                            <div class="chat-body clearfix" >
+                                <div class="header">
+                                    <strong class="primary-font">{{message.name}}</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>{{message.time | date: 'HH:mm'}}</small>
+                                </div>
+                                <p>
+                                    {{message.message}}
+                                </p>
+                           
+                               <!--  <p ng-repeat="message in messages | orderBy: 'time':true" class="message">
+       <time>{{message.time | date: 'HH:mm'}}</time>
+         <span ng-class="{self: message.self}">{{message.message}}</span>
           <time>{{message.time | date: 'HH:mm'}}</time>
          <span>{{message.name}} Says : {{message.message}}</span>
-         </p>
-         </div>
+         </p> -->
+                            </div>
+                        </li>
+                       
+                      
+                        
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" ng-model="message" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-warning btn-sm" id="btn-chat" >
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+  
          
          
          
-         </body>
+         
+         
+         
+         
+         

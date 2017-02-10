@@ -11,6 +11,21 @@ $routeProvider
 	
 })
 
+.when('/home',{
+templateUrl : 'l_home/home.html',
+controller : 'UserController'
+})
+
+.when('/collapse1',{
+templateUrl : 'l_home/home.html',
+
+})
+
+.when('/collapse2',{
+templateUrl : 'l_home/home.html',
+
+})
+
 /*
  * 
  * Admin Mapping*/
@@ -18,6 +33,11 @@ $routeProvider
 .when('/manage_users',{
 templateUrl : 'l_admin/manage_users.html',
 controller : 'UserController'
+})
+
+.when('/manage_applied_jobs',{
+templateUrl : 'l_admin/manage_applied_jobs.html',
+controller : 'JobController'
 })
 
 /*
@@ -43,6 +63,11 @@ controller : 'UserController'
 .when('/myprofile',{
 templateUrl : 'l_user/myprofile.html',
 controller : 'UserController'
+})
+
+.when('/uploadpropic',{
+templateUrl : 'l_user/uploadpropic.html'
+
 })
 
 /*
@@ -155,7 +180,7 @@ templateUrl : 'l_chat/chat.html',
 
 app.controller('CarouselDemoCtrl', ['$scope',function($scope) {
 	 
-	  $scope.myInterval = 50000;
+	  $scope.myInterval = 10000;
 	  $scope.slides = [
 	     { image1: 'lib/image/banner1.jpg' },
 	    { image1: 'lib/image/banner2.jpg'},
@@ -164,6 +189,25 @@ app.controller('CarouselDemoCtrl', ['$scope',function($scope) {
 	    
 	  ];
 }]);
+
+app.controller('ImageDemoCtrl', ['$scope',function($scope) {
+	 
+	  $scope.myInterval = 10000;
+	  $scope.slides = [
+	     { image1: 'lib/image/img1.jpg' },
+	    { image1: 'lib/image/img2.jpg'},
+	    { image1: 'lib/image/img3.jpg' }
+	  
+	    
+	  ];
+}]);
+
+
+
+
+
+
+
 app.run( function ($rootScope, $location,$cookieStore, $http) {
 
 	//$on is monitoring
@@ -174,9 +218,25 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 		 //$.inArray(x,A)==1 =>it will return 1(true) or -1(false).If the x is there in array A it will return true otherwise false.
 		 //Without Login they can access these pages.
 		 //If the location.path is not equal to /search_job or '/view_blog' then this is restricted page.
-	        var restrictedPage = $.inArray($location.path(), ['','/','/search_job','/manage_users','/view_jobdetails','/post_job','/view_applied_job','/view_blog','/login', '/registration','/list_blog','/create_blog','/create_forum','/view_forum','/list_forum','/search_friend','/pending_request','/friend_details','/friend_list']) === -1;
+		 
+		 
+		 var restrictedPages=['','/','/search_job','/view_jobdetails','/view_applied_job','/view_blog','/login','/logout','/uploadpropic','/myprofile', '/registration','/list_blog','/create_blog','/create_forum','/view_forum','/list_forum','/search_friend','/pending_request','/friend_details','/friend_list','/view_event','/home','/collapse1','/collapse2'];
+		 var userRestrictedPages=['/manage_users','/post_job','/create_event','/manage_applied_jobs'];
+		 var currentPage=$location.path();
+		var isRestrictedPage=$.inArray(currentPage,restrictedPages)==1;
+		var isUserRestrictedPage=$.inArray(currentPage,userRestrictedPages)==1;
+		
+		 
+		 console.log('userRestrictedPages=',userRestrictedPages);
+		 console.log('isUserRestrictedPages=',isUserRestrictedPage);
+		 console.log('isRestrictedPages=',isRestrictedPage);
+		 
+		 
+		 
+		 
+	      //  var restrictedPage = $.inArray($location.path(), ['','/','/search_job','/manage_users','/view_jobdetails','/post_job','/view_applied_job','/view_blog','/login', '/registration','/list_blog','/create_blog','/create_forum','/view_forum','/list_forum','/search_friend','/pending_request','/friend_details','/friend_list']) === -1;
 		 console.log("Navigating to page :" + $location.path())
-	        console.log("restrictedPage:" +restrictedPage)
+	        console.log("restrictedPage:" +restrictedPages)
 	        console.log("currentUser:" +$rootScope.currentUser.username)
 	        var loggedIn = $rootScope.currentUser.username;
 		 $rootScope.loggedIn=loggedIn;
@@ -185,17 +245,17 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 			 {$rootScope.loggedInRole=loggedInRole;}*/
 		 
 		 console.log('value of loggedin',$rootScope.loggedIn)
+		 
+		 console.log('Value of role in loggedIn',$rootScope.currentUser.role)
 	        
 	        console.log("loggedIn:" +loggedIn)
 	        
 	        if(!loggedIn)
 	        	{
 	        	
-	        	 if (restrictedPage) {
-		        	  console.log("Navigating to login page:")
-		        	
-
-						            $location.path('/');
+	        	 if (isRestrictedPage) {
+	        		// alert("You cannot access these pages because you have not logged in");
+	        			$location.path("/");
 		                }
 	        	}
 	        
@@ -203,6 +263,13 @@ app.run( function ($rootScope, $location,$cookieStore, $http) {
 	        	{
 	        	
 				 var role = $rootScope.currentUser.role;
+				 $rootScope.role=role;
+				 console.log('role=',role)
+				 if((role!="Admin")&& isUserRestrictedPage)
+					{
+					alert("You are not admin...You cannot do these operations....");
+					$location.path("/");	
+					}
 				 /*var userRestrictedPage = $.inArray($location.path(), ["/post_job"]) == 0;
 				 
 				 if(userRestrictedPage && role!='admin' )

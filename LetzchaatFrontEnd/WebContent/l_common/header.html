@@ -11,12 +11,21 @@
 				</div>
 				<div class="container">
 					
-					<nav class="navbar navbar-inverse" style="color:white;font: bold;">
+					<nav class="navbar navbar-inverse " style="color:white;font: bold;">
   <div class="container-fluid" >
   
     <ul class="nav navbar-nav" >
-     <li class="current_page_item" ><a href="index.html" >Home</a></li>
-							<li><a href="threecolumn.html">AboutUs</a></li>
+   
+     <li class="current_page_item" ng-show="!loggedIn" >
+      
+     <a href="index.html" >Home</a>
+     </li>
+     
+     <li class="current_page_item" ng-show="loggedIn">
+        <a href="#/home" >Home</a>
+       
+     </li>
+    							<li><a href="threecolumn.html">AboutUs</a></li>
 							
 							<li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" >Blogs<span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -38,7 +47,7 @@
 							</ul>
 							</li>
 							
-							<li><a href="twocolumn2.html" >Events</a></li>
+							<li><a href="#/create_event" >Events</a></li>
 							<li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" >Job<span class="caret"></span></a>
 							<ul class="dropdown-menu" ng-controller="JobController as jctrl">
 							<li><a href="#/post_job" >Post Job</a></li>
@@ -47,12 +56,12 @@
 							</ul>
 							</li>
 							<li><a href="#/chat" >Chat</a></li>
-							<li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" >Admin<span class="caret"></span></a>
+							<!-- <li class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" >Admin<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 							<li><a href="#/manage_users" >Manage Users</a></li>
 							
 							</ul>
-							</li>
+							</li> -->
 							<li><a href="onecolumn.html" >ContactUs</a></li>
     </ul>
   
@@ -78,6 +87,7 @@
     <li class="dropdown" style="text-align: right;"><a class="dropdown-toggle" data-toggle="dropdown" > Welcome: {{currentUser.username}}<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 							<li><a href="#/myprofile" ng-click="ctrl.myProfile()" >My Profile</a></li>
+							<li><a href="#/uploadpropic" ng-click="ctrl.myPic()" >Upload Profile_Pic</a></li>
 							<li ><a href="#/logout" ng-click="ctrl.logout()" style="text-align: right;">Logout</a></li>
 							</ul>
 							</li>

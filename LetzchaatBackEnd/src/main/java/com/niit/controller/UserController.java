@@ -1,5 +1,8 @@
 package com.niit.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.niit.dao.FriendDAOImpl;
 import com.niit.dao.UserDAOImpl;
@@ -36,32 +43,56 @@ public class UserController {
 	
 	
 	
+	
 	@RequestMapping(value="/login/",method=RequestMethod.POST)
 	public ResponseEntity<User> validateUser(@RequestBody User user,HttpServletRequest request,HttpSession session)
 	{
 		log.debug("Starting of the Method isValidUser");
 		String username=user.getUsername();
 		String password=user.getPassword();
+		
+		
+		System.out.println("Username is:"+username);
+		System.out.println("Password is:"+password);
+		
+		
 		user=userDAOImpl.validate(username, password);
+		System.out.println("User value:"+user);
+		
 		if(user==null)
 		{
-			
+			user = new User();
 			user.setErrorcode("404");
 			user.setErrormessage("Username and password doesnt exists...");
-			//Error error=new Error(1,"Username and password doesnt exists...");
-			return new ResponseEntity<User>(HttpStatus.OK);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
 			
 			
 		}
-		else
+		char status=user.getStatus();
+		System.out.println("Status is:"+status);
+		
+		
+		if(status=='N')
+		{
+			user.setErrorcode("404");
+			user.setErrormessage("Your registration is pending to approve.. ");
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		}
+		if(status=='R')
+		{
+			user.setErrorcode("404");
+			user.setErrormessage("Your registration is rejected by admin.. ");
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		}
+		else 
 		{
 			session.setAttribute("username", username);
 			session.setAttribute("role", user.getRole());
-			user.setIsonline('Y');
+			//user.setIsonline('Y');
 			user.setErrorcode("200");
 			user.setErrormessage("You have successfully Loggedin");
-			
-			
+			userDAOImpl.setOnline(username);
+			friendDAOImpl.setOnline(username);
 			log.debug("Ending of the Method isValidUser");
 			return new ResponseEntity<User>(user,HttpStatus.OK) ;
 		}
@@ -101,17 +132,18 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value="/user/logout/",method=RequestMethod.PUT)
+	@RequestMapping(value="/user/logout",method=RequestMethod.PUT)
 	public ResponseEntity<User> logout(HttpSession session)
 	{
-		User user=(User)session.getAttribute("user");
+		String username=(String)session.getAttribute("username");
 		if(user!=null)
 		{
-			user.setIsonline('N');
-			userDAOImpl.updateUser(user);
+			//user.setIsonline('N');
+			userDAOImpl.setOffLine(username);
+			friendDAOImpl.setOffLine(username);
 		}
 		
-		session.removeAttribute("user");
+		session.removeAttribute("username");
 		session.invalidate();
 		return new ResponseEntity<User>(HttpStatus.OK);
 	}
@@ -123,7 +155,7 @@ public class UserController {
 		User user = userDAOImpl.getUsername(username);
 		if (user == null) {
 			log.debug("->->->-> User does not exist wiht id" + username);
-			
+			user = new User();
 			user.setErrorcode("404");
 			user.setErrormessage("User does not exist");
 			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
@@ -288,6 +320,51 @@ log.debug("->->->-> User does not exist wiht id" + currentusername);
 		
 		return new ResponseEntity<List<User>>(users,HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value="/uploadPic",method=RequestMethod.POST)
+	public void uploadPic(HttpSession session,@RequestParam CommonsMultipartFile fileUpload){
+		String username=(String)session.getAttribute("username");
+		System.out.println("Username in uploadPic Controller"+username);
+		
+		byte[] arr;
+		if(fileUpload!=null){
+			
+			CommonsMultipartFile afile=fileUpload;
+			 System.out.println("Saving file: " + afile.getOriginalFilename());
+			 
+		try{
+			System.out.println("Inside try block in uploadPic Controller");
+			user.setFile(afile);
+			arr=user.getFile().getBytes();
+		String path="E:/Project2_NIIT/LetzchaatFrontEnd/WebContent/images/"+username+".jpg";
+		System.out.println("Image Path in uploadPic Controller"+path);
+		File f=new File(path);
+		BufferedOutputStream bf=new BufferedOutputStream(new FileOutputStream(f));
+		bf.write(arr);
+		bf.close();
+		System.out.println("Image Uploaded Successfuly in uploadPic Controller"+bf);
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+			System.out.println("Catch block in uploadPic Controller");
+		}
+		}
+		
+		}
+			
+	
+	
+	
+	
+	
+	
+	
+		
+		
+	
+	
+	
 
 	
 

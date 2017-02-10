@@ -151,6 +151,7 @@ public class JobDAOImpl implements JobDAO {
 		JobApplied jobapplied=(JobApplied)query.uniqueResult();
 		tx.commit();
 		session.close();
+		System.out.println("Jobid in getJobApplied method  job DAOIMPL"+jobid);
 		return jobapplied;
 		
 	}
@@ -161,6 +162,18 @@ public class JobDAOImpl implements JobDAO {
 		JobApplied j=session.get(JobApplied.class, jobid);
 		tx.commit();
 		session.close();
+		return j;
+	}
+
+	public List<JobApplied> getAllAppliedJobs() {
+		Session session=getSession();
+		Transaction tx=session.beginTransaction();
+		String hql="from JobApplied ";
+		Query query=session.createQuery(hql);
+		List<JobApplied>j=query.list();
+		tx.commit();
+		session.close();
+		
 		return j;
 	}
 

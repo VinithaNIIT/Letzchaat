@@ -3,8 +3,10 @@ package com.niit.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Component
 @Table(name="l_user")
@@ -23,6 +25,11 @@ public class User extends Error {
 	private String reason;
 	//y-online, n-offline
 	private char isonline;
+	
+	@Transient
+	private MultipartFile file;
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -83,11 +90,19 @@ public class User extends Error {
 	public void setIsonline(char isonline) {
 		this.isonline = isonline;
 	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", name=" + name + ", emailid=" + email + ", password=" + password
+		return "User [username=" + username + ", name=" + name + ", email=" + email + ", password=" + password
 				+ ", mobile=" + mobile + ", address=" + address + ", status=" + status + ", role=" + role + ", reason="
-				+ reason + ", isonline=" + isonline + "]";
+				+ reason + ", isonline=" + isonline + ", file=" + file + "]";
 	}
+	
 
 }

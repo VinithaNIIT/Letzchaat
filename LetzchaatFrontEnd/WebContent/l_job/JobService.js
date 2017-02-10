@@ -20,6 +20,24 @@ app.factory('JobService', ['$http', '$q','$rootScope', function($http, $q,$rootS
 	 );
 	 
  },
+ 
+ getAllAppliedJobs:function(){
+	 console.log('getAllAppliedjobs Method in jobServices')
+	 return $http.get(REST_SERVICE_URI+'/getallappliedjobs/')
+	 .then(
+	function(response){
+		console.log('success in jobService',response.data)
+		 $rootScope.AllAppliedJobs=response.data;
+		return response.data;
+	},
+	function(errResponse){
+		console.error('Error while fetching the jobs');
+		return $q.reject(errResponse);
+	}
+	 );
+	 
+ },
+ 
  postJob:function(job){
 	 console.log('PostJob method in job service')
 	 return $http.post(REST_SERVICE_URI+'/postjob/',job)
