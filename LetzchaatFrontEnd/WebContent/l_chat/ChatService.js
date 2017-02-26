@@ -7,7 +7,7 @@ app.service("ChatService" , function($q, $timeout,$rootScope) {
 	
 	service.RECONNECT_TIMEOUT = 30000;
 	service.SOCKET_URL = "/LetzchaatBackEnd/chat";
-	service.CHAT_TOPIC = "/queue/message";      /*service.CHAT_TOPIC = "/friend_name/queue/message";*/
+    service.CHAT_TOPIC = "/queue/message";      /*service.CHAT_TOPIC = "/friend_name/queue/message";*/
 	service.CHAT_BROKER = "/app/chat";
 	service.recieve = function() {
 		console.log("recieve")

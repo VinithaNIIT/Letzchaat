@@ -3,9 +3,9 @@ app.controller("ChatController" , function($scope, $rootScope,ChatService) {
     $scope.message = "";
     $scope.max = 140;
     
-  /* $scope.friend_name="";
+   $scope.friend_name="";
     
-    var self = this;
+   /* var self = this;
     self.friend={
     		friend_name:''
     		
@@ -23,16 +23,16 @@ app.controller("ChatController" , function($scope, $rootScope,ChatService) {
     	console.log('Friend_name',friend_name)
     	$scope.addMessage()
     	
-    }
-    */
+    }*/
+    
     
    $scope.addMessage = function() {
     	
     	console.log("addMessage")
     	console.log('Friend name',$rootScope.friend_name)
     	console.log('Message is',$scope.message)
-  /*  ChatService.send($scope.message,$rootScope.friend_name);*/
-    	  ChatService.send($scope.message);
+    ChatService.send($scope.message);
+    	 /* ChatService.send($scope.message);*/
     	$scope.message = "";
     };
     

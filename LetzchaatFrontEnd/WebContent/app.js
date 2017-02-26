@@ -10,6 +10,13 @@ $routeProvider
 	
 	
 })
+.when('/aboutus',{
+	templateUrl : 'l_common/aboutus.html',
+	})
+	.when('/contactus',{
+	templateUrl : 'l_common/contactus.html',
+	})
+
 
 .when('/home',{
 templateUrl : 'l_home/home.html',
